@@ -10,7 +10,6 @@ const MEMORIES: MemoryItem[] = [
     dateStr: "The First Hello • July",
     caption: "Where it all began. That first nervous smile, the warmth of your hand, and a spark that started our beautiful journey. Every moment since has been filled with your grace.",
     localPath: "/src/images/1.jpg",
-    fallbackUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=700&q=85",
   },
   {
     id: 3,
@@ -18,7 +17,6 @@ const MEMORIES: MemoryItem[] = [
     dateStr: "Endless Laughter • September",
     caption: "Late-night coffee dates and shared secrets. Getting to know every detail of your beautiful, glowing soul. Your laughter rapidly became my absolute favorite melody.",
     localPath: "/src/images/3.jpg",
-    fallbackUrl: "https://images.unsplash.com/photo-1463797663308-591b936d5423?auto=format&fit=crop&w=700&q=85",
   },
   {
     id: 5,
@@ -26,7 +24,6 @@ const MEMORIES: MemoryItem[] = [
     dateStr: "Golden Sunsets • November",
     caption: "Our first mini-getaway. Watching the sunset paint the sky in shades of gold and rose, realizing my world is infinitely brighter and softer because you are in it.",
     localPath: "/src/images/5.jpg",
-    fallbackUrl: "https://images.unsplash.com/photo-1513278974582-3e1b4a4fa21a?auto=format&fit=crop&w=700&q=85",
   },
   {
     id: 6,
@@ -34,7 +31,6 @@ const MEMORIES: MemoryItem[] = [
     dateStr: "Half a Year of Magic • December",
     caption: "Half a year of sweet memories, comforting hugs, inside jokes, and discovering that my favorite place in the entire world is safely wrapped inside your embrace.",
     localPath: "/src/images/6.jpg",
-    fallbackUrl: "https://images.unsplash.com/photo-1494972308805-463bc619b34e?auto=format&fit=crop&w=700&q=85",
   },
   {
     id: 7,
@@ -42,7 +38,6 @@ const MEMORIES: MemoryItem[] = [
     dateStr: "Dancing in the Rain • January",
     caption: "Underneath the warm neon streetlights, laughing and holding each other close. Turning a simple walk in the cold rain into a cinematic romantic dream we'll never forget.",
     localPath: "/src/images/7.jpg",
-    fallbackUrl: "https://images.unsplash.com/photo-1481169762985-df669584024c?auto=format&fit=crop&w=700&q=85",
   },
   {
     id: 8,
@@ -50,7 +45,6 @@ const MEMORIES: MemoryItem[] = [
     dateStr: "Underneath the Stars • February",
     caption: "A cozy evening of cooking together, whispering under the stars, sharing warm wishes and realizing how incredibly blessed I am to have discovered my soulmate.",
     localPath: "/src/images/8.jpg",
-    fallbackUrl: "https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=700&q=85",
   },
   {
     id: 10,
@@ -58,7 +52,6 @@ const MEMORIES: MemoryItem[] = [
     dateStr: "Autumn Warmth • April",
     caption: "Strolling hand-in-hand through falling leaves, wrapping fingers inside warm coat pockets, feeling a love deeper and more secure than anything I've ever known.",
     localPath: "/src/images/10.jpg",
-    fallbackUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=85",
   },
   {
     id: 12,
@@ -66,36 +59,24 @@ const MEMORIES: MemoryItem[] = [
     dateStr: "One Year & Beyond • June",
     caption: "One complete, beautiful trip around the sun with Dilraj. 365 days of loving you, and I still fall deeper for you each day. Happy Birthday, my absolute world, my everything!",
     localPath: "/src/images/12.jpg",
-    fallbackUrl: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=700&q=85",
   }
 ];
 
-// Reusable Image Loader with graceful fallback
+// Reusable Image Loader for local gallery images
 function SafeImage({
   localPath,
-  fallbackUrl,
   alt,
   className,
 }: {
   localPath: string;
-  fallbackUrl: string;
   alt: string;
   className: string;
 }) {
-  const [src, setSrc] = useState(localPath);
-  const [hasError, setHasError] = useState(false);
-
   return (
     <img
-      src={src}
+      src={localPath}
       alt={alt}
       className={`${className} object-cover`}
-      onError={() => {
-        if (!hasError) {
-          setHasError(true);
-          setSrc(fallbackUrl);
-        }
-      }}
       referrerPolicy="no-referrer"
     />
   );
@@ -224,9 +205,7 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                     <div className="relative w-full h-[12.5rem] bg-pink-100 dark:bg-pink-950 rounded-2xl overflow-hidden shadow-inner group">
                       <SafeImage
                         localPath={memory.localPath}
-                        fallbackUrl={memory.fallbackUrl}
                         alt={memory.monthTitle}
-                       
                         className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
                       />
 
@@ -346,7 +325,6 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                   <div className="relative w-full h-[12.5rem] rounded-xl overflow-hidden mb-3 bg-pink-50 dark:bg-pink-950">
                     <SafeImage
                       localPath={memory.localPath}
-                      fallbackUrl={memory.fallbackUrl}
                       alt={memory.monthTitle}
                       className="w-full h-80 object-cover group-hover:scale-103 transition-transform duration-700"
                     />
@@ -422,7 +400,6 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
               >
                 <SafeImage
                   localPath={MEMORIES[lightboxIndex].localPath}
-                  fallbackUrl={MEMORIES[lightboxIndex].fallbackUrl}
                   alt={MEMORIES[lightboxIndex].monthTitle}
                   className="rounded-2xl max-w-full max-h-[60vh] object-contain shadow-[0_0_50px_rgba(255,94,168,0.3)] select-none border border-white/20"
                 />

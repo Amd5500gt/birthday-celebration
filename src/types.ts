@@ -4,7 +4,6 @@ export interface MemoryItem {
   dateStr: string;
   caption: string;
   localPath: string;
-  fallbackUrl: string;
 }
 
 export interface SparkleItem {
