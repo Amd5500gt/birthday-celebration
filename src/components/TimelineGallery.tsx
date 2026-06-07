@@ -3,62 +3,64 @@ import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight, Maximize2, Heart, Sparkles, X, Layers } from "lucide-react";
 import { MemoryItem } from "../types";
 
+const asset = (file: string) => new URL(`../images/${file}`, import.meta.url).href;
+
 const MEMORIES: MemoryItem[] = [
   {
     id: 1,
     monthTitle: "1st Month Together",
     dateStr: "The First Hello • July",
     caption: "Where it all began. That first nervous smile, the warmth of your hand, and a spark that started our beautiful journey. Every moment since has been filled with your grace.",
-    localPath: "/src/images/1.jpg",
+    localPath: asset("1.jpg"),
   },
   {
     id: 3,
     monthTitle: "3rd Month Together",
     dateStr: "Endless Laughter • September",
     caption: "Late-night coffee dates and shared secrets. Getting to know every detail of your beautiful, glowing soul. Your laughter rapidly became my absolute favorite melody.",
-    localPath: "/src/images/3.jpg",
+    localPath: asset("3.jpg"),
   },
   {
     id: 5,
     monthTitle: "5th Month Together",
     dateStr: "Golden Sunsets • November",
     caption: "Our first mini-getaway. Watching the sunset paint the sky in shades of gold and rose, realizing my world is infinitely brighter and softer because you are in it.",
-    localPath: "/src/images/5.jpg",
+    localPath: asset("5.jpg"),
   },
   {
     id: 6,
     monthTitle: "6th Month Together",
     dateStr: "Half a Year of Magic • December",
     caption: "Half a year of sweet memories, comforting hugs, inside jokes, and discovering that my favorite place in the entire world is safely wrapped inside your embrace.",
-    localPath: "/src/images/6.jpg",
+    localPath: asset("6.jpg"),
   },
   {
     id: 7,
     monthTitle: "7th Month Together",
     dateStr: "Dancing in the Rain • January",
     caption: "Underneath the warm neon streetlights, laughing and holding each other close. Turning a simple walk in the cold rain into a cinematic romantic dream we'll never forget.",
-    localPath: "/src/images/7.jpg",
+    localPath: asset("7.jpg"),
   },
   {
     id: 8,
     monthTitle: "8th Month Together",
     dateStr: "Underneath the Stars • February",
     caption: "A cozy evening of cooking together, whispering under the stars, sharing warm wishes and realizing how incredibly blessed I am to have discovered my soulmate.",
-    localPath: "/src/images/8.jpg",
+    localPath: asset("8.jpg"),
   },
   {
     id: 10,
     monthTitle: "10th Month Together",
     dateStr: "Autumn Warmth • April",
     caption: "Strolling hand-in-hand through falling leaves, wrapping fingers inside warm coat pockets, feeling a love deeper and more secure than anything I've ever known.",
-    localPath: "/src/images/10.jpg",
+    localPath: asset("10.jpg"),
   },
   {
     id: 12,
     monthTitle: "12th Month Together",
     dateStr: "One Year & Beyond • June",
     caption: "One complete, beautiful trip around the sun with Dilraj. 365 days of loving you, and I still fall deeper for you each day. Happy Birthday, my absolute world, my everything!",
-    localPath: "/src/images/12.jpg",
+    localPath: asset("12.jpg"),
   }
 ];
 
@@ -82,11 +84,7 @@ function SafeImage({
   );
 }
 
-interface TimelineGalleryProps {
-  isDarkMode: boolean;
-}
-
-export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
+export default function TimelineGallery() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [galleryMode, setGalleryMode] = useState<"swipe" | "list">("swipe");
@@ -118,10 +116,10 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
       {/* Gallery Header with Modern Toggle */}
       <div className="flex items-center justify-between mb-6 px-1">
         <div>
-          <h3 className="font-serif text-xl font-medium tracking-tight text-pink-600 dark:text-pink-400 flex items-center gap-2">
+          <h3 className="font-serif text-xl font-medium tracking-tight text-pink-600 flex items-center gap-2">
             📸 Memory Album
           </h3>
-          <p className="text-xs text-slate-600 dark:text-slate-400">
+          <p className="text-xs text-slate-600">
             A beautiful catalog of our golden year together
           </p>
         </div>
@@ -130,7 +128,7 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
         <button
           id="gallery-view-switch"
           onClick={() => setGalleryMode((prev) => (prev === "swipe" ? "list" : "swipe"))}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium glassmorphism-light dark:glassmorphism-dark transition-all duration-300 hover:scale-105 select-none text-slate-800 dark:text-slate-300 border border-pink-100 dark:border-pink-900"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium glassmorphism-light transition-all duration-300 hover:scale-105 select-none text-slate-800 border border-pink-100"
         >
           <Layers className="w-3.5 h-3.5 text-pink-500" />
           {galleryMode === "swipe" ? "Vertical Timeline" : "Interactive Cards"}
@@ -194,15 +192,13 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                       }
                     }}
                     onTouchStart={() => {}} // simple tap responsive hook
-                    className={`absolute w-[18rem] xs:w-[20rem] h-[22rem] rounded-3xl cursor-pointer select-none overflow-hidden 
-                      ${isDarkMode ? "glassmorphism-dark" : "glassmorphism-light"} 
-                      bg-opacity-25 dark:bg-opacity-20 backdrop-blur-md p-4 flex flex-col justify-between shadow-2xl border border-white border-opacity-30`}
+                    className="absolute w-[18rem] xs:w-[20rem] h-[22rem] rounded-3xl cursor-pointer select-none overflow-hidden glassmorphism-light bg-opacity-25 backdrop-blur-md p-4 flex flex-col justify-between shadow-2xl border border-white border-opacity-30"
                   >
                     {/* Rose Gold / Pink Glowing Card Border */}
                     <div className="absolute inset-0 border border-pink-400 border-opacity-10 rounded-3xl pointer-events-none" />
 
                     {/* Image Area */}
-                    <div className="relative w-full h-[12.5rem] bg-pink-100 dark:bg-pink-950 rounded-2xl overflow-hidden shadow-inner group">
+                    <div className="relative w-full h-[12.5rem] bg-pink-100 rounded-2xl overflow-hidden shadow-inner group">
                       <SafeImage
                         localPath={memory.localPath}
                         alt={memory.monthTitle}
@@ -210,7 +206,7 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                       />
 
                       {/* Sparkler sparkles decor */}
-                      <span className="absolute top-2.5 right-2.5 bg-white bg-opacity-70 dark:bg-black dark:bg-opacity-70 p-1.5 rounded-full text-pink-500 shadow-md">
+                      <span className="absolute top-2.5 right-2.5 bg-white bg-opacity-70 p-1.5 rounded-full text-pink-500 shadow-md">
                         <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                       </span>
 
@@ -224,14 +220,14 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                     <div className="flex-1 mt-3 flex flex-col justify-between">
                       <div>
                         <div className="flex justify-between items-center">
-                          <h4 className="font-serif text-md font-semibold text-pink-600 dark:text-pink-400">
+                          <h4 className="font-serif text-md font-semibold text-pink-600">
                             {memory.monthTitle}
                           </h4>
                           <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
                             {memory.dateStr.split(" • ")[1]}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 mt-1.5 font-sans leading-relaxed italic">
+                        <p className="text-xs text-slate-600 line-clamp-3 mt-1.5 font-sans leading-relaxed italic">
                           "{memory.caption.slice(0, 100)}..."
                         </p>
                       </div>
@@ -242,7 +238,7 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                           <Heart className="w-3.5 h-3.5 fill-pink-500 text-pink-500 animate-pulse" />
                           Forever
                         </span>
-                        <span className="text-slate-500 dark:text-slate-500">
+                        <span className="text-slate-500">
                           {index + 1} of {MEMORIES.length}
                         </span>
                       </div>
@@ -257,7 +253,7 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
               <button
                 id="gallery-prev-btn"
                 onClick={prevSlide}
-                className="p-2 py-2 rounded-full glassmorphism-light dark:glassmorphism-dark text-pink-500 shadow-md transition-all active:scale-95 hover:bg-pink-100"
+                className="p-2 py-2 rounded-full glassmorphism-light text-pink-500 shadow-md transition-all active:scale-95 hover:bg-pink-100"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -268,7 +264,7 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                     key={i}
                     onClick={() => setActiveSlide(i)}
                     className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                      activeSlide === i ? "w-5 bg-pink-500" : "w-1.5 bg-pink-200 dark:bg-pink-900"
+                      activeSlide === i ? "w-5 bg-pink-500" : "w-1.5 bg-pink-200"
                     }`}
                   />
                 ))}
@@ -277,7 +273,7 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
               <button
                 id="gallery-next-btn"
                 onClick={nextSlide}
-                className="p-2 py-2 rounded-full glassmorphism-light dark:glassmorphism-dark text-pink-500 shadow-md transition-all active:scale-95 hover:bg-pink-100"
+                className="p-2 py-2 rounded-full glassmorphism-light text-pink-500 shadow-md transition-all active:scale-95 hover:bg-pink-100"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -299,7 +295,7 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
             className="flex flex-col relative pl-4 pr-1 mt-2"
           >
             {/* Soft pink alignment vertical line */}
-            <div className="absolute top-1 bottom-6 left-6.5 w-[2px] bg-gradient-to-b from-pink-300 via-rose-300 to-purple-400 dark:from-pink-950 dark:via-pink-900 dark:to-purple-950 rounded-full" />
+            <div className="absolute top-1 bottom-6 left-6.5 w-[2px] bg-gradient-to-b from-pink-300 via-rose-300 to-purple-400 rounded-full" />
 
             {MEMORIES.map((memory, index) => (
               <motion.div
@@ -312,17 +308,15 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                 className="relative mb-8 pl-10 cursor-pointer group"
               >
                 {/* Heart Thread Node Indicator */}
-                <div className="absolute left-4.5 top-1.5 w-6 h-6 rounded-full bg-pink-100 dark:bg-pink-950 flex items-center justify-center border-2 border-pink-400 shadow-md group-hover:scale-110 group-hover:bg-pink-500 group-hover:text-white transition-all">
+                <div className="absolute left-4.5 top-1.5 w-6 h-6 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-400 shadow-md group-hover:scale-110 group-hover:bg-pink-500 group-hover:text-white transition-all">
                   <Heart className="w-3.5 h-3.5 fill-pink-500 text-pink-500 group-hover:fill-white group-hover:text-white transition-all animate-pulse" />
                 </div>
 
                 {/* Glassmorphism Timeline Content Card */}
-                <div className={`p-4 rounded-3xl ${
-                  isDarkMode ? "glassmorphism-dark bg-opacity-30" : "glassmorphism-light bg-opacity-40"
-                    } border border-pink-100 dark:border-pink-950/40 shadow-lg group-hover:border-pink-300 dark:group-hover:border-pink-900 transition-all duration-300`}
+                <div className="p-4 rounded-3xl glassmorphism-light bg-opacity-40 border border-pink-100 shadow-lg group-hover:border-pink-300 transition-all duration-300"
                 >
                   {/* Photo area */}
-                  <div className="relative w-full h-[12.5rem] rounded-xl overflow-hidden mb-3 bg-pink-50 dark:bg-pink-950">
+                  <div className="relative w-full h-[12.5rem] rounded-xl overflow-hidden mb-3 bg-pink-50">
                     <SafeImage
                       localPath={memory.localPath}
                       alt={memory.monthTitle}
@@ -340,10 +334,10 @@ export default function TimelineGallery({ isDarkMode }: TimelineGalleryProps) {
                   <span className="text-[10px] text-pink-500 font-bold uppercase tracking-widest block mb-1">
                     {memory.monthTitle}
                   </span>
-                  <h4 className="font-serif text-sm font-semibold text-slate-800 dark:text-slate-100 mb-2">
+                  <h4 className="font-serif text-sm font-semibold text-slate-800 mb-2">
                     {memory.dateStr}
                   </h4>
-                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans italic">
+                  <p className="text-xs text-slate-700 leading-relaxed font-sans italic">
                     "{memory.caption}"
                   </p>
                 </div>

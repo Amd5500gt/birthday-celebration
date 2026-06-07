@@ -187,7 +187,7 @@ export default function App() {
 
           {/* SECTION 2: 📸 PHOTO GALLERY & MEMORY TIMELINE */}
           <section id="story-timeline-section" className="py-12 border-t border-pink-100/10">
-            <TimelineGallery isDarkMode={isDarkMode} />
+            <TimelineGallery />
           </section>
 
           {/* SECTION 3: 💌 BIRTHDAY MESSAGE SECTION */}
