@@ -1,0 +1,6 @@
+{
+  "name": "Dilraj's Birthday Celebration",
+  "description": "A premium romantic birthday celebration app for Dilraj, featuring a luxury glassmorphism design, photo gallery, memory timeline, interactive birthday cake, and a surprise gift box.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
